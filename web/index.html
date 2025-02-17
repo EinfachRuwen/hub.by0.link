@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta property='og:title' id="by0.link" content='by0.link - Just hosting' />
+    <meta property='og:title' content='by0.link - Just tools & hosting' />
     <meta property='og:type' content="website" />
-    <meta property='og:description' id="eDesc" content='Just a few services, that you can use, if you want to c:' />
+    <meta property='og:description' content='Just a few services, that you can use, if you want to c:' />
     <meta name="theme-color" content="#000000">
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>by0.link - Just hosting</title>
+    <title>by0.link - Just tools & hosting</title>
     <style>
         ::-webkit-scrollbar {
             width: 8px;
@@ -33,39 +33,61 @@
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
         }
     </style>
+    <script>
+        function fetchFavicon(url, fallback) {
+            return `https://www.google.com/s2/favicons?sz=64&domain=${new URL(url).hostname}` || fallback;
+        }
+    </script>
 </head>
 <body class="pt-20 p-0 bg-black text-white font-mono">
     <div class="text-center w-screen select-none">
         <h1 class="text-6xl font-semibold">by0.link</h1>
-        <p class="text-gray-700">Just hosting.</p>
-        <div class="flex justify-center text-gray-500 mt-2 cursor-pointer" onclick="window.open('https://docs.by0.link')">
-            Docs
-        </div>
-        <p class="flex justify-center text-gray-500">Some projects are private now f.e. HedgeDoc, Nextcloud, etc.</p>
+        <p class="text-gray-700">Just tools & hosting.</p>
     </div>
     
-    <div id="list" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-6 justify-center">
-        <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer shadow-lg hover:shadow-xl" onclick="window.open('https://hauk.by0.link')">
-            <div class="flex items-center">
-                <img src="https://raw.githubusercontent.com/bilde2910/Hauk/master/frontend/assets/favicon.svg" class="rounded-lg w-10 h-10">
-                <span class="font-bold ml-3">Hauk</span>
+    <div class="p-6">
+        <h2 class="text-2xl font-semibold text-gray-300">Hosting Services</h2>
+        <div id="hosting-list" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center mt-4">
+            <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer shadow-lg hover:shadow-xl" onclick="window.open('https://hauk.by0.link')">
+                <div class="flex items-center">
+                    <img src="https://raw.githubusercontent.com/bilde2910/Hauk/master/frontend/assets/favicon.svg" class="rounded-lg w-10 h-10">
+                    <span class="font-bold ml-3">Hauk</span>
+                </div>
+                <p class="text-gray-400 mt-2">Hauk is a fully open source, self-hosted location sharing service for Android.</p>
+                <p class="text-blue-300 mt-2">hauk.by0.link</p>
             </div>
-            <p class="text-gray-400 mt-2">Hauk is a fully open source, self-hosted location sharing service for Android.</p>
-            <p class="text-blue-300 mt-2">hauk.by0.link</p>
+	 <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer shadow-lg hover:shadow-xl" onclick="window.open('https://passcheck.byzero.dev')">
+                <div class="flex items-center">
+                    <img src="https://i.imgur.com/0ZFODZa.png" class="rounded-lg w-10 h-10">
+                    <span class="font-bold ml-3">Passcheck</span>
+                </div>
+                <p class="text-gray-400 mt-2">A lightweight web app to test password strength and check if it has been leaked.</p>
+                <p class="text-blue-300 mt-2">passcheck.vercel.app</p>
+            </div>
         </div>
     </div>
-
-    <div class="card bg-gray-100 rounded-lg bg-gray-800 hover:shadow-xl p-5 content-around" onclick="window.open('https://passcheck.byzero.dev')">   <!-- Put your Website Link here-->
-                <div class="flex">
-                    <img src="https://i.imgur.com/0ZFODZa.png" class="rounded-lg w-10 h-10"><span class="font-bold ml-3 mt-2">Passcheck</span> <!-- Put your Fiel image and your field name Link here-->
+    
+    <div class="p-6">
+        <h2 class="text-2xl font-semibold text-gray-300">My Tools</h2>
+        <div id="tools-list" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center mt-4">
+            <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer shadow-lg hover:shadow-xl" onclick="window.open('https://einfachruwen.github.io/basic-username-generator/')">
+                <div class="flex items-center">
+                    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" class="rounded-lg w-10 h-10">
+                    <span class="font-bold ml-3">Basic Username Generator</span>
                 </div>
-                <p class="text-gray-400 mt-2">
-                    A lightweight Javascript web application that allows users to test the strength of a password, how long it may take to crack as well as check to see if it has been featured in a known data breach.  <!-- Put your Description here-->
-                </p>
-                <p class="text-blue-300 mt-2">
-                    passcheck.vercel.app      <!-- Put your Link here-->
-                </p>
-		</div>
+                <p class="text-gray-400 mt-2">Generates secure and general usernames that aren't linked to you.</p>
+                <p class="text-blue-300 mt-2">einfachruwen.github.io/basic-username-generator/</p>
+            </div>
+            <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer shadow-lg hover:shadow-xl" onclick="window.open('https://einfachruwen.github.io/pixelperfect/')">
+                <div class="flex items-center">
+                    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" class="rounded-lg w-10 h-10">
+                    <span class="font-bold ml-3">PixelPerfect</span>
+                </div>
+                <p class="text-gray-400 mt-2">A user-friendly tool for optimizing and uploading images with smart resizing.</p>
+                <p class="text-blue-300 mt-2">einfachruwen.github.io/pixelperfect/</p>
+            </div>
+        </div>
+    </div>
     
     <footer class="text-gray-700 text-center mt-10 p-4">
         <p class="cursor-pointer" onclick="window.open('https://by0.link')">Made with lots of love by Ruwen and his Website Generator <3</p>
