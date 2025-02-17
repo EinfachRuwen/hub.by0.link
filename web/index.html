@@ -22,8 +22,19 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
-        body, html {
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
             overflow-x: hidden;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1 0 auto;
         }
         .card {
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -39,65 +50,64 @@
         }
     </script>
 </head>
-<body class="pt-20 p-0 bg-black text-white font-mono">
-    <div class="text-center w-screen select-none">
-        <h1 class="text-6xl font-semibold">by0.link</h1>
-        <p class="text-gray-700">Just tools & hosting.</p>
-    </div>
-    
-    <div class="p-6">
-        <h2 class="text-2xl font-semibold text-gray-300">Hosting Services</h2>
-        <div id="hosting-list" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center mt-4">
-            <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer shadow-lg hover:shadow-xl" onclick="window.open('https://hauk.by0.link')">
-                <div class="flex items-center">
-                    <img src="https://raw.githubusercontent.com/bilde2910/Hauk/master/frontend/assets/favicon.svg" class="rounded-lg w-10 h-10">
-                    <span class="font-bold ml-3">Hauk</span>
+<body class="bg-black text-white font-mono">
+    <div class="content pt-20 px-6">
+        <div class="text-center select-none mb-8">
+            <h1 class="text-6xl font-semibold">by0.link</h1>
+            <p class="text-gray-400">Just tools & hosting.</p>
+        </div>
+        
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12">
+                <h2 class="text-2xl font-semibold text-gray-300 mb-4">Hosting Services</h2>
+                <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer" onclick="window.open('https://hauk.by0.link')">
+                        <div class="flex items-center">
+                            <img src="https://raw.githubusercontent.com/bilde2910/Hauk/master/frontend/assets/favicon.svg" class="rounded-lg w-10 h-10">
+                            <span class="font-bold ml-3">Hauk</span>
+                        </div>
+                        <p class="text-gray-400 mt-2">Hauk is a fully open source, self-hosted location sharing service for Android.</p>
+                    </div>
+                    <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer" onclick="window.open('https://passcheck.vercel.app')">
+                        <div class="flex items-center">
+                            <img src="https://i.imgur.com/0ZFODZa.png" class="rounded-lg w-10 h-10">
+                            <span class="font-bold ml-3">Passcheck</span>
+                        </div>
+                        <p class="text-gray-400 mt-2">A lightweight web app to test password strength and check if it has been leaked.</p>
+                    </div>
                 </div>
-                <p class="text-gray-400 mt-2">Hauk is a fully open source, self-hosted location sharing service for Android.</p>
-                <p class="text-blue-300 mt-2">hauk.by0.link</p>
             </div>
-	 <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer shadow-lg hover:shadow-xl" onclick="window.open('https://passcheck.vercel.app')">
-                <div class="flex items-center">
-                    <img src="https://i.imgur.com/0ZFODZa.png" class="rounded-lg w-10 h-10">
-                    <span class="font-bold ml-3">Passcheck</span>
+            
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-300 mb-4">My Tools</h2>
+                <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer" onclick="window.open('https://einfachruwen.github.io/basic-username-generator/')">
+                        <div class="flex items-center">
+                            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" class="rounded-lg w-10 h-10">
+                            <span class="font-bold ml-3">Basic Username Generator</span>
+                        </div>
+                        <p class="text-gray-400 mt-2">Generates secure and general usernames that aren't linked to you.</p>
+                    </div>
+                    <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer" onclick="window.open('https://einfachruwen.github.io/pixelperfect/')">
+                        <div class="flex items-center">
+                            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" class="rounded-lg w-10 h-10">
+                            <span class="font-bold ml-3">PixelPerfect</span>
+                        </div>
+                        <p class="text-gray-400 mt-2">A user-friendly tool for optimizing and uploading images with smart resizing.</p>
+                    </div>
+                    <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer" onclick="window.open('https://soli.by0.link')">
+                        <div class="flex items-center">
+                            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" class="rounded-lg w-10 h-10">
+                            <span class="font-bold ml-3">SoLi - Song.link Converter</span>
+                        </div>
+                        <p class="text-gray-400 mt-2">Convert music links between Spotify, Apple Music, and more</p>
+                    </div>
                 </div>
-                <p class="text-gray-400 mt-2">A lightweight web app to test password strength and check if it has been leaked.</p>
-                <p class="text-blue-300 mt-2">passcheck.vercel.app</p>
             </div>
         </div>
     </div>
     
-    <div class="p-6">
-        <h2 class="text-2xl font-semibold text-gray-300">My Tools</h2>
-        <div id="tools-list" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center mt-4">
-            <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer shadow-lg hover:shadow-xl" onclick="window.open('https://einfachruwen.github.io/basic-username-generator/')">
-                <div class="flex items-center">
-                    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" class="rounded-lg w-10 h-10">
-                    <span class="font-bold ml-3">Basic Username Generator</span>
-                </div>
-                <p class="text-gray-400 mt-2">Generates secure and general usernames that aren't linked to you.</p>
-                <p class="text-blue-300 mt-2">einfachruwen.github.io/basic-username-generator/</p>
-            </div>
-            <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer shadow-lg hover:shadow-xl" onclick="window.open('https://einfachruwen.github.io/pixelperfect/')">
-                <div class="flex items-center">
-                    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" class="rounded-lg w-10 h-10">
-                    <span class="font-bold ml-3">PixelPerfect</span>
-                </div>
-                <p class="text-gray-400 mt-2">A user-friendly tool for optimizing and uploading images with smart resizing.</p>
-                <p class="text-blue-300 mt-2">einfachruwen.github.io/pixelperfect/</p>
-            </div>
-	    <div class="card bg-gray-800 rounded-xl p-5 cursor-pointer shadow-lg hover:shadow-xl" onclick="window.open('https://soli.by0.link')">
-                <div class="flex items-center">
-                    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" class="rounded-lg w-10 h-10">
-                    <span class="font-bold ml-3">SoLi - Song.link Converter</span>
-                </div>
-                <p class="text-gray-400 mt-2">Convert music links between Spotify, Apple Music, and more</p>
-                <p class="text-blue-300 mt-2">soli.by0.link</p>
-            </div>
-        </div>
-    </div>
-    
-    <footer class="text-gray-700 text-center mt-10 p-4">
+    <footer class="text-gray-700 text-center p-4 mt-auto">
         <p class="cursor-pointer" onclick="window.open('https://by0.link')">Made with lots of love by Ruwen and his Website Generator <3</p>
     </footer>
 </body>
