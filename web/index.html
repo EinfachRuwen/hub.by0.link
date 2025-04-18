@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to Focus on Ruwen</title>
+    <meta http-equiv="refresh" content="5;url=https://focusonruwen.com/projects">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 600px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .logo-container {
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        
+        .logo {
+            display: inline-block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111;
+            background-color: #f0f4f8;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            letter-spacing: 0.5px;
+            border: 1px solid #e0e7ee;
+        }
+        
+        .divider {
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(to right, transparent, #ddd, transparent);
+            margin: 2.5rem 0;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #111;
+            font-weight: 700;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        .redirect-link {
+            display: inline-block;
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #0066cc;
+            transition: all 0.2s ease;
+        }
+        
+        .redirect-link:hover {
+            color: #004c99;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background-color: #f0f0f0;
+            border-radius: 2px;
+            margin-top: 2rem;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #0066cc;
+            animation: progress 5s linear forwards;
+        }
+        
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .footer {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .icon {
+            display: block;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 1rem;
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <div class="logo">hub.by0.link</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+        
+        <h1>Redirecting to My Personal Website</h1>
+        <p>I've made my coding and hosting projects available on my personal website. You'll be automatically redirected in 5 seconds.</p>
+        <p>If you're not redirected, please <a href="https://focusonruwen.com/projects" class="redirect-link">click here</a> to visit focusonruwen.com/projects</p>
+        
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        
+        <div class="footer">
+            &copy; 2025 • Redirecting to <a href="https://focusonruwen.com/projects" class="redirect-link">focusonruwen.com/projects</a>
+        </div>
+    </div>
+</body>
+</html>
