@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KI-Dienste Vergleich</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+            color: #374151; /* Dark gray text */
+            box-sizing: border-box; /* Ensure consistent box model */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        h1 {
+            color: #1f2937;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.75rem;
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb; /* Light gray border */
+        }
+        th {
+            background-color: #4a5568; /* Darker header background */
+            color: #ffffff;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        td {
+            background-color: #ffffff;
+            vertical-align: top;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .feature-row th {
+            background-color: #6b7280; /* Slightly lighter gray for feature row headers */
+        }
+        .feature-row td {
+            background-color: #f9fafb; /* Very light gray for feature row cells */
+        }
+        .emoji-green { color: #10b981; } /* Green for advantages */
+        .emoji-yellow { color: #f59e0b; } /* Yellow for warnings/limitations */
+        .emoji-red { color: #ef4444; } /* Red for disadvantages/not available */
+
+        /* Responsive adjustments for mobile */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr {
+                margin-bottom: 1rem;
+                border: 1px solid #e5e7eb;
+                border-radius: 0.75rem;
+                overflow: hidden;
+            }
+            td {
+                border: none;
+                display: flex; /* Use flexbox for label and content */
+                justify-content: space-between; /* Space between label and content */
+                align-items: flex-start; /* Align items to the start */
+                padding: 0.75rem 1rem; /* Adjust padding */
+                text-align: left; /* Align text to left */
+            }
+            td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #4b5563;
+                flex-shrink: 0; /* Prevent label from shrinking */
+                margin-right: 1rem; /* Space between label and content */
+                text-align: left;
+            }
+            .feature-row td {
+                background-color: #f9fafb; /* Maintain light background for feature rows */
+            }
+            .feature-row td::before {
+                 background-color: #e0e7ff; /* Light blue for feature labels on mobile */
+                 padding: 0.75rem 1rem; /* Match cell padding */
+                 border-right: 1px solid #e5e7eb;
+                 border-bottom: 1px solid #e5e7eb;
+                 /* Remove margin-right if padding is used on the label itself */
+                 margin-right: 0;
+                 border-radius: 0.5rem 0 0 0.5rem; /* Rounded left corners for the label */
+            }
+            /* Adjust padding for the content part of the cell on mobile */
+            td > ul {
+                flex-grow: 1; /* Allow content to take remaining space */
+                padding-left: 0; /* Remove default ul padding */
+                list-style: none; /* Remove default list bullets */
+            }
+            td > ul li {
+                margin-bottom: 0.25rem; /* Small space between list items */
+            }
+            td:first-child {
+                border-top-left-radius: 0.75rem;
+                border-top-right-radius: 0.75rem;
+            }
+            td:last-child {
+                border-bottom-left-radius: 0.75rem;
+                border-bottom-right-radius: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>KI-Dienste im Vergleich</h1>
+        <p class="text-center text-lg mb-6">
+            Hier findest du eine Übersicht der Funktionen, Limits und Eigenschaften von Gemini Advanced, Gemini Free und ChatGPT Plus.
+            Vergleiche schnell und einfach, welcher Dienst am besten zu deinen Bedürfnissen passt.
+        </p>
+
+        <div class="overflow-x-auto rounded-xl shadow-lg">
+            <table class="min-w-full">
+                <thead>
+                    <tr>
+                        <th class="w-1/4 rounded-tl-xl">Feature</th>
+                        <th class="w-1/4">Gemini Advanced</th>
+                        <th class="w-1/4">Gemini Free</th>
+                        <th class="w-1/4 rounded-tr-xl">ChatGPT Plus (GPT-4o)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Verwendetes Modell</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ Gemini 1.5 Pro (primär)</li>
+                                <li>✅ Gemini 2.0 Flash, 2.0 Flash Thinking, 2.5 Pro (experimentell)</li>
+                                <li>✅ "Deep Research"-Modell</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>✅ Google 1.5 Flash (Standard)</li>
+                                <li>✅ Gemini 2.0 Flash (für Deep Research)</li>
+                                <li>⚠️ Begrenzter Zugang zu 2.5 Flash/Pro</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ GPT-4o (Standard seit April 2024)</li>
+                                <li>⚠️ Intern noch "gpt-4-turbo" Referenzen</li>
+                                <li>✅ OpenAI o3-mini, o3-mini-high, o1 (für Pro-Nutzer)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Plattformverfügbarkeit</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ Web-App (gemini.google.com)</li>
+                                <li>✅ Mobile-App</li>
+                                <li>✅ Google Workspace Integration (Gmail, Docs etc.)</li>
+                                <li>❌ Nicht für unter 18 Jahren</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>✅ Web-App (gemini.google.com)</li>
+                                <li>✅ Mobile-App</li>
+                                <li>✅ Einige Funktionen ohne Anmeldung</li>
+                                <li>✅ Über 60 Länder</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ Web-App (chat.openai.com)</li>
+                                <li>✅ Mobile-Apps (iOS, Android)</li>
+                                <li>✅ macOS Desktop-App</li>
+                                <li>✅ API-Zugang</li>
+                                <li>✅ Benutzerdefinierte GPTs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Textverständnis, Multimodalität (Bild, Audio, Datei)</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ Multimodales Modell (Text, Bild, Audio, Video)</li>
+                                <li>✅ Beschriften/Beantworten von Fragen zu Bildern</li>
+                                <li>✅ Transkription & logisches Denken über PDFs (bis 2 Mio. Tokens)</li>
+                                <li>✅ Code-Verständnis & -Generierung</li>
+                                <li>✅ Text aus Bildern extrahieren</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>✅ Multimodale Eingaben (Text, Stimme, Bilder)</li>
+                                <li>✅ Grundlegende Dokumentenanalyse (PDF, Word)</li>
+                                <li>✅ Bilder verarbeiten, Fragen beantworten</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ Multimodales Modell (Text, Bild, Audio)</li>
+                                <li>✅ Erkennt Hintergrundgeräusche, mehrere Sprecher, emotionale Töne in Audio</li>
+                                <li>✅ Detaillierte Analyse von Bildern, Dokumenten mit Abbildungen</li>
+                                <li>✅ Code-Generierung & Debugging</li>
+                                <li>✅ Unterstützt viele Dateitypen (PDF, DOCX, XLSX, CSV etc.)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Deep Research / Web Access</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ Tiefgehende Echtzeit-Recherche</li>
+                                <li>✅ Generiert Forschungsberichte (5-10 Min.)</li>
+                                <li>✅ Bis zu 20 Berichte/Tag</li>
+                                <li>✅ Export nach Google Docs</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>✅ "Deep Research" verfügbar (Gemini 2.0 Flash)</li>
+                                <li>⚠️ Begrenzter Zugang</li>
+                                <li>⚠️ Ca. 5 Berichte/Monat</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ Mehrstufige Recherchen im Internet</li>
+                                <li>✅ Analysiert Hunderte von Quellen</li>
+                                <li>✅ 25 Anfragen/Monat (Plus), 250 Anfragen/Monat (Pro)</li>
+                                <li>✅ Berichte mit Zitaten & Denkprozess</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Bild- und Videogenerierung</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ Bildgenerierung (Prompt-basiert, Bearbeitung)</li>
+                                <li>✅ Videogenerierung (Veo 2, 8 Sek., 720p, MP4)</li>
+                                <li>⚠️ Monatliche Limits für Video</li>
+                                <li>⚠️ Video nicht für unter 18/Arbeitskonten</li>
+                                <li>✅ SynthID Wasserzeichen auf Videos</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>✅ Bildgenerierung (allgemein zugänglich)</li>
+                                <li>⚠️ Ca. 50 Bilder/Tag</li>
+                                <li>❌ Keine explizite Videogenerierung</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ Bildgenerierung (nativ, DALL-E 3)</li>
+                                <li>✅ Videogenerierung (Sora, bis 20 Sek.)</li>
+                                <li>✅ Unbegrenzte Bilder/Videos (Plus/Team)</li>
+                                <li>⚠️ Plus/Team: 720p, 10 Sek., 2 gleichzeitige</li>
+                                <li>✅ Pro: 1080p, 20 Sek., 5 gleichzeitige, keine Wasserzeichen</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Canvas- oder Kontextflächen</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ Gemini Canvas (interaktive Oberfläche)</li>
+                                <li>✅ Angetrieben von Gemini 2.5 Pro (1 Mio. Tokens Kontext)</li>
+                                <li>✅ Umwandlung von Berichten in Webseiten, Infografiken etc.</li>
+                                <li>✅ Code-Generierung, Algorithmus-Visualisierung</li>
+                                <li>✅ Gemini LTI™ für Google Workspace for Education</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>✅ Canvas verfügbar</li>
+                                <li>⚠️ Weniger leistungsstarkes Modell als Advanced</li>
+                                <li>⚠️ Bearbeitung nur Desktop Web-App</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ Canvas (interaktiver Arbeitsbereich für Schreiben/Code)</li>
+                                <li>✅ In-Line-Feedback, Shortcuts</li>
+                                <li>✅ Verfügbar in GPT-4o und o1</li>
+                                <li>✅ Rendering von React/HTML für Mini-Apps</li>
+                                <li>✅ Funktioniert mit benutzerdefinierten GPTs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Audio-Transkription</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ Transkribiert Audio (alle gängigen Formate)</li>
+                                <li>✅ Max. 8 Std. oder 1 Mio. Tokens pro Prompt</li>
+                                <li>✅ Hohe Genauigkeit, Sprecher-Diarisierung</li>
+                                <li>✅ Mehrsprachige Unterstützung, anpassbare Formatierung</li>
+                                <li>❌ Keine Echtzeit-Transkription</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>✅ Transkribiert Audio</li>
+                                <li>✅ Kostenlose API-Nutzung möglich (via Drittanbieter)</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ Transkribiert Audio (Whisper-Modell)</li>
+                                <li>✅ Ca. 50 Sprachen</li>
+                                <li>⚠️ Dateigrößenlimit 25 MB</li>
+                                <li>❌ Keine Sprecheridentifikation, Zeitstempel (nativ)</li>
+                                <li>❌ Keine automatische Meeting-Transkription</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Token-Limits (Prompt + Antwort)</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ 1 Million Tokens Kontextfenster (ca. 1.500 Seiten Text)</li>
+                                <li>✅ Gemini 2.0 Pro Experimental: 2 Millionen Tokens</li>
+                                <li>✅ Output: 65.535 Tokens (Pro/Flash Preview)</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>⚠️ 32.000 Tokens Kontextfenster</li>
+                                <li>✅ API: 2.0 Flash: 1 Mio. Input, 8.192 Output</li>
+                                <li>✅ API: 2.5 Flash Preview: 1 Mio. Input, 65.536 Output</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ 128.000 Tokens Kontextfenster</li>
+                                <li>✅ Max. Output: 16.384 Tokens</li>
+                                <li>⚠️ Plus: 80 Nachrichten/3 Std. (GPT-4o), 40 Nachrichten/3 Std. (GPT-4)</li>
+                                <li>✅ Enterprise: 128.000 Tokens Kontext</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Dateigrößen- oder Dateitypenlimits</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ Bis zu 10 Dateien/Prompt</li>
+                                <li>✅ Code-Ordner/GitHub-Repo (bis 5.000 Dateien, 100 MB)</li>
+                                <li>✅ Bilder: 3.000/Prompt, max. 7 MB (PNG, JPEG, WebP)</li>
+                                <li>✅ Dokumente: 3.000/Prompt, 1.000 Seiten/Datei, max. 50 MB (PDF, TXT)</li>
+                                <li>✅ Videos: 10/Prompt, max. 45-60 Min. (viele Formate)</li>
+                                <li>✅ Audio: 1/Prompt, max. 8.4 Std. (viele Formate)</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>⚠️ Ähnliche Dateitypen wie Advanced</li>
+                                <li>⚠️ Geringere rollierende Nutzungslimits</li>
+                                <li>⚠️ Max. 7 MB für direkte Uploads (Dokumente)</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ Max. 512 MB/Datei (allgemein)</li>
+                                <li>✅ Text/Dokumente: 2 Mio. Tokens/Datei</li>
+                                <li>✅ CSV/Tabellen: max. 50 MB</li>
+                                <li>✅ Bilder: 20 MB/Bild</li>
+                                <li>⚠️ Endnutzer: 10 GB Gesamtlimit, Organisation: 100 GB</li>
+                                <li>⚠️ Kostenlos: 3 Datei-Uploads/Tag</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Nutzungsgrenzen (Anfragen pro Stunde/Tag)</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ Höhere Kapazitätslimits</li>
+                                <li>✅ Deep Research: bis zu 20 Berichte/Tag</li>
+                                <li>⚠️ Limits variieren nach Prompt-Komplexität</li>
+                                <li>✅ API: Hohe Ratenlimits (z.B. 2.000 RPM für Flash)</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>⚠️ "Limited access" zu 2.5 Flash/Pro</li>
+                                <li>⚠️ Deep Research: ca. 5 Berichte/Monat</li>
+                                <li>⚠️ Bildgenerierung: ca. 50 Bilder/Tag</li>
+                                <li>⚠️ API Free Tier: niedrigere Ratenlimits</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>⚠️ Plus: 80 Nachrichten/3 Std. (kann reduziert werden)</li>
+                                <li>✅ Pro: "Nahezu unbegrenzte" Nutzung</li>
+                                <li>✅ Deep Research: 25 Anfragen/Monat (Plus), 250 (Pro)</li>
+                                <li>✅ Sora: 2 gleichzeitige Generierungen (Plus), 5 (Pro)</li>
+                                <li>✅ API: Kosten basieren auf Token-Nutzung</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Sprachen & Deutschqualität</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ Über 40 Sprachen inkl. Deutsch</li>
+                                <li>✅ Integration in Google Workspace (Deutsch unterstützt)</li>
+                                <li>⚠️ Gelegentliche Sprachwechsel berichtet</li>
+                                <li>✅ Deutschqualität nach Updates "amazing"</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>✅ Über 40 Sprachen inkl. Deutsch</li>
+                                <li>⚠️ Gemischte Nutzerberichte zur Deutschqualität</li>
+                                <li>⚠️ Möglicherweise Notwendigkeit, Sprache neu anzugeben</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ Über 95 Sprachen (höchste Kompetenz in Englisch)</li>
+                                <li>✅ Merkt sich Sprachpräferenzen</li>
+                                <li>⚠️ KI-generierte Übersetzungen manchmal "komisch"</li>
+                                <li>✅ Nützlich für sprachliches Lernen</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Update-Zyklus des Wissensstandes</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ Regelmäßige Updates & neue Modellversionen</li>
+                                <li>✅ Knowledge Cutoff: Jan 2025 (2.5 Flash Preview)</li>
+                                <li>✅ "Auto-updated aliases" für neueste Versionen</li>
+                                <li>✅ Integration von LearnLM</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>✅ Regelmäßige Updates</li>
+                                <li>✅ Knowledge Cutoff: Aug 2024 (2.0 Flash), Jan 2025 (2.5 Flash Preview)</li>
+                                <li>✅ Integration von LearnLM</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ Kontinuierlicher Update-Zyklus</li>
+                                <li>✅ Knowledge Cutoff: Okt 2023 (GPT-4o)</li>
+                                <li>✅ Ältere Modelle werden eingestellt</li>
+                                <li>✅ Feinabstimmung von Modellen verfügbar</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature">Datenschutz & Cloud-/Lokale Verarbeitung</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>⚠️ Daten zur Produktverbesserung genutzt (standardmäßig aktiv)</li>
+                                <li>✅ Menschliche Prüfer (anonymisiert)</li>
+                                <li>✅ Workspace-Daten nicht für Training/Anzeigen</li>
+                                <li>✅ On-Premises-Option (Google Distributed Cloud)</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>⚠️ Daten zur Produktverbesserung genutzt (standardmäßig aktiv)</li>
+                                <li>⚠️ Konversationen bis 72 Std. gespeichert (auch bei Deaktivierung)</li>
+                                <li>⚠️ Arbeits-/Schulkonten: Aktivität kann nicht deaktiviert werden</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ Daten standardmäßig nicht für Training genutzt</li>
+                                <li>⚠️ Keine Ende-zu-Ende-Verschlüsselung</li>
+                                <li>⚠️ OpenAI-Mitarbeiter können auf Daten zugreifen</li>
+                                <li>✅ Datenverarbeitungsvereinbarungen (DPA)</li>
+                                <li>✅ Daten verschlüsselt (Ruhezustand/Übertragung)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="feature-row">
+                        <th data-label="Feature" class="rounded-bl-xl">Preise & Zugänglichkeit</th>
+                        <td data-label="Gemini Advanced">
+                            <ul>
+                                <li>✅ Kostenpflichtiges Abo: Google One AI Premium Plan</li>
+                                <li>✅ 21,99 EUR/Monat (nach 1 Monat kostenlos)</li>
+                                <li>✅ Inkl. Gemini in Gmail/Docs, 2 TB Speicher</li>
+                                <li>✅ Kostenloser Zugang für berechtigte Studenten</li>
+                            </ul>
+                        </td>
+                        <td data-label="Gemini Free">
+                            <ul>
+                                <li>✅ Kostenlos zugänglich</li>
+                                <li>✅ 1.5 Flash Modell (32.000 Tokens Kontext)</li>
+                                <li>✅ API "Free Tier" für Testzwecke</li>
+                                <li>✅ Gastnutzung ohne Anmeldung möglich</li>
+                            </ul>
+                        </td>
+                        <td data-label="ChatGPT Plus (GPT-4o)">
+                            <ul>
+                                <li>✅ Kostenloser Plan (begrenzter Zugang zu GPT-4o)</li>
+                                <li>✅ ChatGPT Plus: 20 USD/Monat</li>
+                                <li>✅ ChatGPT Pro: 200 USD/Monat (höhere Limits)</li>
+                                <li>✅ ChatGPT Team/Enterprise (auf Anfrage)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
