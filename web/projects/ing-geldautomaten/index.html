@@ -4,17 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <meta name="theme-color" content="#ff6200">
-  <title>ING Geldautomatensuche</title>
-
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>ING Geldautomatensuche</title> <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="ING Geldautomatensuche">
-
-  <link rel="apple-touch-icon" href="https://i.imgur.com/musz5HH_d.webp?maxwidth=760&fidelity=grand">
+  <meta name="apple-mobile-web-app-title" content="ING Geldautomatensuche"> <link rel="apple-touch-icon" href="https://i.imgur.com/musz5HH_d.webp?maxwidth=760&fidelity=grand">
 
   <link rel="manifest" href="data:application/manifest+json,{
-    &quot;name&quot;:&quot;Geldautomatensuche&quot;,
-    &quot;short_name&quot;:&quot;ING Finder&quot;,
+    &quot;name&quot;:&quot;ING Geldautomatensuche&quot;, &quot;short_name&quot;:&quot;ING Finder&quot;,
     &quot;start_url&quot;:&quot;.&quot;,
     &quot;display&quot;:&quot;standalone&quot;,
     &quot;background_color&quot;:&quot;#ff6200&quot;,
@@ -36,7 +31,7 @@
       font-family: sans-serif;
     }
     #ga-suche {
-      height: 100vh; /* <-- KORRIGIERT */
+      height: 100vh;
       width: 100vw;
     }
   </style>
@@ -44,6 +39,18 @@
 <body>
 
   <div id="ga-suche"></div>
+
+  <script>
+    // Beobachter, um dem iFrame die Standort-Berechtigung zu geben
+    const observer = new MutationObserver((mutationsList, obs) => {
+      const iframe = document.querySelector('#ga-suche iframe');
+      if (iframe) {
+        iframe.setAttribute('allow', 'geolocation');
+        obs.disconnect(); // Aufgabe erledigt, Beobachter stoppen
+      }
+    });
+    observer.observe(document.getElementById('ga-suche'), { childList: true });
+  </script>
 
   <script>
     // ING Geldautomatensuche initialisieren
