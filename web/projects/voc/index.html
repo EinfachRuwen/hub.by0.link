@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simpler Vokabeltrainer</title>
+    <style>
+        :root {
+            --primary-bg: #f0f4f8;
+            --secondary-bg: #ffffff;
+            --text-color: #2c3e50;
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --light-gray: #bdc3c7;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--secondary-bg);
+            padding: 2em;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        h1, h2 {
+            text-align: center;
+            color: var(--primary-color);
+        }
+        /* --- Setup-Ansicht --- */
+        #setup-container textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 10px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            margin-bottom: 1em;
+            box-sizing: border-box;
+        }
+        .input-group {
+            display: flex;
+            gap: 1em;
+            margin-bottom: 1em;
+        }
+        .input-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+        .options {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 1.5em;
+            flex-wrap: wrap;
+        }
+        .options label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+        /* --- App-Ansicht --- */
+        #app-container {
+            display: none;
+        }
+        #progress-info {
+            text-align: center;
+            margin-bottom: 1em;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .progress-bar-container {
+            width: 100%;
+            background-color: #ecf0f1;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5em;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 0;
+            height: 20px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease-in-out;
+            text-align: center;
+            color: white;
+            line-height: 20px;
+            font-size: 0.8rem;
+        }
+        #card {
+            background-color: var(--primary-bg);
+            padding: 2em;
+            border-radius: var(--border-radius);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 1em;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+        #card .language-label {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            margin-bottom: 0.5em;
+        }
+        #card .card-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        #answer-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.2rem;
+            text-align: center;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        #answer-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        #feedback {
+            text-align: center;
+            margin-top: 0.5em;
+            font-size: 1.1rem;
+            font-weight: bold;
+            height: 25px;
+        }
+        .feedback-correct { color: var(--secondary-color); }
+        .feedback-incorrect { color: var(--danger-color); }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1em;
+            margin-top: 1em;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: var(--border-radius);
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            grid-column: 1 / -1; /* Nimmt die volle Breite ein */
+        }
+        .btn-primary:hover { background-color: #2980b9; }
+        .btn-success { background-color: var(--secondary-color); color: white; }
+        .btn-success:hover { background-color: #27ae60; }
+        .btn-danger { background-color: var(--danger-color); color: white; }
+        .btn-danger:hover { background-color: #c0392b; }
+        
+        #share-section {
+            margin-top: 2em;
+            display: none;
+        }
+        #share-link {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            background-color: #ecf0f1;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            word-wrap: break-word;
+        }
+        #controls {
+            margin-top: 2em;
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .btn-secondary:hover { background-color: #7f8c8d; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="setup-container">
+            <h1>Dein Vokabeltrainer</h1>
+            <p>Füge deine Vokabeln im Format <strong>Vorderseite;Rückseite</strong> ein (eine pro Zeile).</p>
+            <textarea id="vocab-input" placeholder="z.B.:\nHallo;Hola\nWelt;Mundo\nComputer;Ordenador"></textarea>
+            
+            <div class="input-group">
+                <input type="text" id="front-lang" value="Deutsch" placeholder="Sprache Vorderseite">
+                <input type="text" id="back-lang" value="Spanisch" placeholder="Sprache Rückseite">
+            </div>
+            
+            <div class="options">
+                <label><input type="checkbox" id="shuffle-checkbox" checked> Zufällige Reihenfolge</label>
+                <label><input type="checkbox" id="save-progress-checkbox" checked> Fortschritt speichern</label>
+                <label><input type="checkbox" id="force-all-checkbox"> Alle Vokabeln üben</label>
+            </div>
+            
+            <button class="btn-primary" onclick="startLearning()">Lernen starten!</button>
+        </div>
+
+        <div id="app-container">
+            <h2 id="app-title">Lernen</h2>
+            <div id="progress-info"></div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+
+            <div id="card">
+                <div class="language-label" id="language-label"></div>
+                <div class="card-text" id="card-text"></div>
+            </div>
+            
+            <input type="text" id="answer-input" placeholder="Deine Antwort...">
+            <div id="feedback"></div>
+
+            <div class="button-group" id="check-button-group">
+                <button class="btn-primary" id="check-btn">Überprüfen</button>
+            </div>
+
+            <div class="button-group" id="feedback-button-group" style="display: none;">
+                <button class="btn-danger" id="unknown-btn">Wusste ich nicht</button>
+                <button class="btn-success" id="known-btn">Wusste ich</button>
+            </div>
+            
+            <div id="controls">
+                 <button class="btn-secondary" onclick="generateShareLink()">Teilen-Link erstellen</button>
+                 <button class="btn-secondary" onclick="backToSetup()">Neue Liste</button>
+            </div>
+           
+            <div id="share-section">
+                <h3>Dein geteilter Link:</h3>
+                <p>Kopiere diesen Link und sende ihn an jemanden. Er enthält alle Vokabeln und Einstellungen.</p>
+                <input id="share-link" type="text" readonly>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM-Elemente
+        const setupContainer = document.getElementById('setup-container');
+        const appContainer = document.getElementById('app-container');
+        const vocabInput = document.getElementById('vocab-input');
+        const frontLangInput = document.getElementById('front-lang');
+        const backLangInput = document.getElementById('back-lang');
+        const shuffleCheckbox = document.getElementById('shuffle-checkbox');
+        const saveProgressCheckbox = document.getElementById('save-progress-checkbox');
+        const forceAllCheckbox = document.getElementById('force-all-checkbox');
+        const progressInfo = document.getElementById('progress-info');
+        const progressBar = document.getElementById('progress-bar');
+        const cardText = document.getElementById('card-text');
+        const languageLabel = document.getElementById('language-label');
+        const answerInput = document.getElementById('answer-input');
+        const feedback = document.getElementById('feedback');
+        const checkBtn = document.getElementById('check-btn');
+        const checkButtonGroup = document.getElementById('check-button-group');
+        const feedbackButtonGroup = document.getElementById('feedback-button-group');
+        const knownBtn = document.getElementById('known-btn');
+        const unknownBtn = document.getElementById('unknown-btn');
+        const shareSection = document.getElementById('share-section');
+        const shareLinkInput = document.getElementById('share-link');
+
+        // App-Status
+        let allCards = [];
+        let currentCard = null;
+        let learningPool = [];
+        let settings = {};
+
+        // Initialisierung beim Laden der Seite
+        window.onload = () => {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                try {
+                    const decodedData = JSON.parse(atob(hash));
+                    vocabInput.value = decodedData.vocab;
+                    frontLangInput.value = decodedData.frontLang;
+                    backLangInput.value = decodedData.backLang;
+                    shuffleCheckbox.checked = decodedData.shuffle;
+                    saveProgressCheckbox.checked = decodedData.saveProgress;
+                    
+                    // Direkt starten, wenn Daten aus dem Link geladen wurden
+                    startLearning();
+                } catch (e) {
+                    console.error("Fehler beim Dekodieren der Daten aus dem Link:", e);
+                    alert("Der Link scheint beschädigt zu sein.");
+                }
+            }
+        };
+
+        function startLearning() {
+            const vocabText = vocabInput.value.trim();
+            if (vocabText === "") {
+                alert("Bitte gib zuerst Vokabeln ein.");
+                return;
+            }
+
+            settings = {
+                frontLang: frontLangInput.value || 'Vorderseite',
+                backLang: backLangInput.value || 'Rückseite',
+                shuffle: shuffleCheckbox.checked,
+                saveProgress: saveProgressCheckbox.checked,
+                forceAll: forceAllCheckbox.checked,
+            };
+
+            parseVocabulary(vocabText);
+            
+            if (allCards.length === 0) {
+                alert("Keine gültigen Vokabeln gefunden. Überprüfe das Format (z.B. 'Wort;Übersetzung').");
+                return;
+            }
+            
+            // Lade Fortschritt, wenn gewünscht
+            if (settings.saveProgress && !settings.forceAll) {
+                loadProgress();
+            }
+
+            setupContainer.style.display = 'none';
+            appContainer.style.display = 'block';
+            document.getElementById('app-title').innerText = `${settings.frontLang} - ${settings.backLang}`;
+
+            showNextCard();
+        }
+
+        function parseVocabulary(text) {
+            allCards = text.split('\n')
+                .filter(line => line.includes(';'))
+                .map((line, index) => {
+                    const parts = line.split(';');
+                    return {
+                        id: index,
+                        front: parts[0].trim(),
+                        back: parts[1].trim(),
+                        score: 0 // 0 = neu/unbekannt. Je höher, desto besser gewusst.
+                    };
+                });
+        }
+        
+        function getProgressKey() {
+            // Erstellt einen eindeutigen Schlüssel für diesen Vokabelsatz
+            return 'vocabProgress_' + btoa(vocabInput.value.trim()).substring(0, 50);
+        }
+
+        function saveProgress() {
+            if (settings.saveProgress) {
+                try {
+                    const progress = allCards.map(card => ({ id: card.id, score: card.score }));
+                    localStorage.setItem(getProgressKey(), JSON.stringify(progress));
+                } catch (e) {
+                    console.error("Fehler beim Speichern des Fortschritts:", e);
+                }
+            }
+        }
+
+        function loadProgress() {
+            const savedProgress = localStorage.getItem(getProgressKey());
+            if (savedProgress) {
+                const progressData = JSON.parse(savedProgress);
+                progressData.forEach(savedCard => {
+                    const card = allCards.find(c => c.id === savedCard.id);
+                    if (card) {
+                        card.score = savedCard.score;
+                    }
+                });
+            }
+        }
+
+        function buildLearningPool() {
+            learningPool = [];
+            const cardsToLearn = settings.forceAll ? allCards : allCards.filter(c => c.score < 3);
+
+            if (cardsToLearn.length === 0) {
+                // Alle Vokabeln gelernt
+                return;
+            }
+
+            cardsToLearn.forEach(card => {
+                // Je niedriger der Score, desto öfter kommt die Karte in den Pool
+                const weight = Math.max(1, 4 - card.score);
+                for (let i = 0; i < weight; i++) {
+                    learningPool.push(card);
+                }
+            });
+
+            if (settings.shuffle) {
+                // Fisher-Yates Shuffle
+                for (let i = learningPool.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [learningPool[i], learningPool[j]] = [learningPool[j], learningPool[i]];
+                }
+            }
+        }
+
+        function showNextCard() {
+            buildLearningPool();
+            
+            updateProgress();
+
+            if (learningPool.length === 0) {
+                displayCompletion();
+                return;
+            }
+            
+            // Wähle eine zufällige Karte aus dem gewichteten Pool
+            const randomIndex = Math.floor(Math.random() * learningPool.length);
+            currentCard = learningPool[randomIndex];
+
+            languageLabel.innerText = settings.frontLang;
+            cardText.innerText = currentCard.front;
+
+            resetUI();
+        }
+        
+        function displayCompletion() {
+            cardText.innerText = "🎉 Super! Du hast alle Vokabeln gelernt! 🎉";
+            languageLabel.innerText = "Geschafft";
+            answerInput.style.display = 'none';
+            checkButtonGroup.style.display = 'none';
+            feedbackButtonGroup.style.display = 'none';
+            feedback.innerText = "";
+        }
+
+        function checkAnswer() {
+            const userAnswer = answerInput.value.trim();
+            if (userAnswer === '') return;
+            
+            const isCorrect = userAnswer.toLowerCase() === currentCard.back.toLowerCase();
+
+            languageLabel.innerText = settings.backLang;
+            cardText.innerText = currentCard.back;
+            feedback.innerText = isCorrect ? "Richtig!" : `Falsch! Richtig wäre: ${currentCard.back}`;
+            feedback.className = isCorrect ? 'feedback-correct' : 'feedback-incorrect';
+            
+            checkButtonGroup.style.display = 'none';
+            feedbackButtonGroup.style.display = 'grid';
+            
+            if (isCorrect) {
+                // Wenn direkt richtig, automatisch als "gewusst" werten
+                 markAsKnown();
+            }
+            // Ansonsten wartet die App auf den Klick des Nutzers
+        }
+        
+        function markAsKnown() {
+            currentCard.score++;
+            saveProgress();
+            showNextCard();
+        }
+
+        function markAsUnknown() {
+            currentCard.score = 0; // Setzt den Fortschritt für diese Karte zurück
+            saveProgress();
+            showNextCard();
+        }
+        
+        function updateProgress() {
+            const knownCards = allCards.filter(c => c.score >= 3).length;
+            const totalCards = allCards.length;
+            progressInfo.innerText = `${knownCards} / ${totalCards} Vokabeln gekonnt`;
+            
+            const percentage = totalCards > 0 ? (knownCards / totalCards) * 100 : 0;
+            progressBar.style.width = percentage + '%';
+            progressBar.innerText = Math.round(percentage) + '%';
+        }
+
+        function resetUI() {
+            answerInput.value = '';
+            answerInput.focus();
+            feedback.innerText = '';
+            feedback.className = '';
+            checkButtonGroup.style.display = 'grid';
+            feedbackButtonGroup.style.display = 'none';
+        }
+        
+        function backToSetup() {
+            if (confirm("Möchtest du wirklich zum Start zurückkehren? Dein aktueller Lernfortschritt geht verloren.")) {
+                window.location.hash = ''; // Link zurücksetzen
+                location.reload(); // Einfachste Methode, um alles zurückzusetzen
+            }
+        }
+        
+        function generateShareLink() {
+            const dataToShare = {
+                vocab: vocabInput.value.trim(),
+                frontLang: settings.frontLang,
+                backLang: settings.backLang,
+                shuffle: settings.shuffle,
+                saveProgress: settings.saveProgress,
+            };
+            
+            const jsonString = JSON.stringify(dataToShare);
+            const base64String = btoa(jsonString);
+            
+            const url = `${window.location.origin}${window.location.pathname}#${base64String}`;
+            
+            shareLinkInput.value = url;
+            shareSection.style.display = 'block';
+
+            // Link direkt markieren zum einfachen Kopieren
+            shareLinkInput.select();
+            alert("Link wurde erstellt und in das Textfeld unten kopiert!");
+        }
+
+        // Event Listeners
+        checkBtn.addEventListener('click', checkAnswer);
+        answerInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                if (checkButtonGroup.style.display !== 'none') {
+                    checkAnswer();
+                }
+            }
+        });
+        knownBtn.addEventListener('click', markAsKnown);
+        unknownBtn.addEventListener('click', markAsUnknown);
+
+    </script>
+</body>
+</html>
